@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,21 +7,20 @@ const page = () => {
   return (
     <div>
       {/* Story Section */}
-      <div className="flex flex-col max-lg:pt-20 lg:flex-row w-[90%] items-center justify-between lg:gap-16 m-auto my-8">
+      <div className="flex flex-col md:flex-row w-[90%] items-center justify-between m-auto my-8">
         <div>
           <h1 className="text-[50px] font-semibold text-pink-600 max-[1170px]:text-center">
             Our Story
           </h1>
-          <p className="mt-10 mb-6 text-xl text-black"></p>
-          <p className="text-[20px] max-[1170px]:w-[81.25%] max-[1170px]:mx-auto max-[1170px]:text-center text-black">
-            AdoraSparkles is a brand born out of passion and love for
-            Aesthetics. This brand has been in existence for 4 years now. It is
-            for the girls who love both minimalist and maximalist fashion sense.
-            It&apos;s a brand that caters for different aesthetics. We embody
-            Luxury without guilt,Confidence in every thread and it&apos;s
-            basically a brand for the Soft girlies who want to be more in thier
-            feminine energy 🤍✨ Do you want to be part of the girlies? Welll
-            head over to the shopping corner and make a purchase 
+          <p className="mt-10 mb-6 text-xl text-black">
+            Launched in 2015, Adora Sparkles is Nigeria’s premier online jewelry
+            brand, founded by two passionate entrepreneurs. We blend tradition
+            and innovation to empower women and celebrate beauty.
+          </p>
+          <p className="text-[14px] max-[1170px]:w-[81.25%] max-[1170px]:mx-auto max-[1170px]:text-center text-black">
+            Adora Sparkles offers a diverse assortment of handcrafted jewelry
+            and accessories, growing rapidly and serving thousands of happy
+            customers nationwide.
           </p>
         </div>
         <Image
@@ -64,12 +62,12 @@ const page = () => {
         </ul>
         {/* Call to Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Link
+          <a
             href="/contact"
             className="px-6 py-3 rounded-full bg-pink-600 text-white font-bold shadow hover:bg-pink-700 transition"
           >
             Contact Us
-          </Link>
+          </a>
           <Link
             href="/products"
             className="px-6 py-3 rounded-full bg-black text-white font-bold shadow hover:bg-pink-600 hover:text-white transition"
@@ -81,9 +79,7 @@ const page = () => {
 
       {/* Timeline/History Section */}
       <div className="w-[90%] mx-auto my-12">
-        <h2 className="text-3xl font-bold text-pink-600 mb-8 text-center">
-          Our Journey
-        </h2>
+        <h2 className="text-3xl font-bold text-pink-600 mb-8">Our Journey</h2>
         <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
           <div className="flex flex-col items-center">
             <div className="bg-pink-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mb-2">
@@ -312,10 +308,10 @@ function FAQAccordion() {
         return (
           <div
             key={idx}
-            className={`border border-pink-200 rounded-xl bg-white shadow transition-all`}
+            className={`border border-pink-200 rounded-xl bg-white shadow transition`}
           >
             <button
-              className="w-full flex items-center justify-between text-left px-6 py-4  cursor-pointer duration-500 transition-all font-semibold text-pink-600 focus:outline-none"
+              className="w-full flex items-center justify-between text-left px-6 py-4 font-semibold text-pink-600 focus:outline-none"
               onClick={() => setOpenIndex(isOpen ? null : idx)}
             >
               <span>{faq.question}</span>

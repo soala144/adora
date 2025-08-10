@@ -1,79 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const products = [
-  {
-    id: 1,
-    name: "Kouya Waist Bead",
-    image: "/images/waist-beads.jpg",
-    price: "₦77,900.00",
-    description:
-      "Handcrafted Kouya waist bead, a symbol of beauty and tradition. Made with premium materials for lasting elegance.",
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "Classic Bracelet",
-    image: "/images/bracelets.jpg",
-    price: "₦25,000.00",
-    description:
-      "Classic bracelet, stylish and versatile. Adds a touch of elegance to your look.",
-    featured: true,
-  },
-  {
-    id: 3,
-    name: "Elegant Anklet",
-    image: "/images/anklets.jpg",
-    price: "₦18,500.00",
-    description:
-      "Elegant anklet, perfect for any occasion. Crafted for comfort and style.",
-    featured: false,
-  },
-  {
-    id: 4,
-    name: "Phone Charm",
-    image: "/images/phone-charms.jpg",
-    price: "₦10,000.00",
-    description: "Trendy phone charm, a fun accessory for your device.",
-    featured: false,
-  },
-  {
-    id: 5,
-    name: "Gift Box",
-    image: "/images/gift-box.jpg",
-    price: "₦5,000.00",
-    description: "Beautiful gift box, perfect for presenting your jewelry.",
-    featured: false,
-  },
-  {
-    id: 6,
-    name: "Thigh Beads",
-    image: "/images/thigh-beads.jpg",
-    price: "₦22,000.00",
-    description: "Handcrafted thigh beads, elegant and unique.",
-    featured: false,
-  },
-  {
-    id: 7,
-    name: "Jewelry Beads",
-    image: "/images/jewelry-beads.jpg",
-    price: "₦30,000.00",
-    description: "Jewelry beads, a timeless accessory for every wardrobe.",
-    featured: false,
-  },
-  {
-    id: 8,
-    name: "Product Special",
-    image: "/images/product.jpg",
-    price: "₦50,000.00",
-    description: "Special product, limited edition and exclusive.",
-    featured: true,
-  },
-];
+import { products } from "../../../data/product";
 
 export default function ProductDetail({ params }) {
-  const id = parseInt(params.id, 10);
-  const product = products.find((p) => p.id === id);
+  const product = products.find((p) => p.id === params.id);
   if (!product) {
     return <div className="text-center py-20 text-xl">Product not found.</div>;
   }
@@ -136,7 +66,7 @@ export default function ProductDetail({ params }) {
                 alt={fp.name}
                 width={200}
                 height={200}
-                className="rounded-lg mb-3 object-cover"
+                className="rounded-lg mb-3 object-cover w-30 h-20 "
               />
               <h3 className="text-lg font-bold text-pink-600 mb-1">
                 {fp.name}

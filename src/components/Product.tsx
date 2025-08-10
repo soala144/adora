@@ -1,76 +1,45 @@
 "use client";
 import React, { useRef, useState } from "react";
-import Image from "next/image";
+import { useCart } from "../context/CartContext";
+import { products } from "../data/product";
+import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
+import Image from "next/image";
 import { HiShoppingCart } from "react-icons/hi";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-
-const products: { id: number; name: string; image: string; price: string }[] = [
-  {
-    id: 1,
-    name: "Kouya Waist Bead",
-    image: "/images/waist-beads.jpg",
-    price: "₦77,900.00",
-  },
-  {
-    id: 2,
-    name: "Classic Bracelet",
-    image: "/images/bracelets.jpg",
-    price: "₦25,000.00",
-  },
-  {
-    id: 3,
-    name: "Elegant Anklet",
-    image: "/images/anklets.jpg",
-    price: "₦18,500.00",
-  },
-  {
-    id: 4,
-    name: "Phone Charm",
-    image: "/images/phone-charms.jpg",
-    price: "₦10,000.00",
-  },
-  {
-    id: 5,
-    name: "Gift Box",
-    image: "/images/gift-box.jpg",
-    price: "₦5,000.00",
-  },
-  {
-    id: 6,
-    name: "Thigh Beads",
-    image: "/images/thigh-beads.jpg",
-    price: "₦22,000.00",
-  },
-  {
-    id: 7,
-    name: "Jewelry Beads",
-    image: "/images/jewelry-beads.jpg",
-    price: "₦30,000.00",
-  },
-  {
-    id: 8,
-    name: "Product Special",
-    image: "/images/product.jpg",
-    price: "₦50,000.00",
-  },
-];
 
 const Product = () => {
-
+  const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
   const swiperRef = useRef<any>(null);
-  const [hasHovered, setHasHovered] = useState<boolean>(false)
+  const router = useRouter();
+  const handleAddToCart = (product: any) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: Number(product.price.replace(/[^\d.]/g, "")),
+      img: product.image,
+      quantity: 1,
+      color: product.color,
+      size: product.size,
+    });
+  };
 
   return (
-    <div className="py-10 px-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
+    <div className="w-[90%] m-auto my-4">
+      <h1 className="text-2xl font-bold mb-6 text-center">
         Our Best Selling Items
       </h1>
-      <div className="hidden lg:block relative" onMouseEnter={() => setHasHovered(true)} onMouseLeave={() => setHasHovered(false)}>
+
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Desktop Swiper */}
         <Swiper
           modules={[FreeMode]}
           spaceBetween={16}
@@ -80,73 +49,107 @@ const Product = () => {
           breakpoints={{
             640: { slidesPerView: 3 },
             1024: { slidesPerView: 4 },
+            1100: { slidesPerView: 5 },
           }}
           ref={swiperRef}
-          onSwiper={swiper => swiperRef.current = swiper}
-          className="mb-8"
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          className="hidden sm:block"
         >
-          <button onClick={() => swiperRef.current.slideNext()} className={`${hasHovered ? "" : "hidden"} cursor-pointer hover:bg-[#ff66d1] hover:text-white text-[#ff66d1] absolute rounded-full flex items-center justify-center size-12 shadow-lg top-1/2 transform z-50 -translate-y-1/2 bg-white right-5`}>
-            <FaArrowRight size={20} />
-          </button>
-          <button onClick={() => swiperRef.current.slidePrev()} className={`${hasHovered ? "" : "hidden"} cursor-pointer hover:bg-[#ff66d1] hover:text-white text-[#ff66d1] absolute rounded-full flex items-center justify-center size-12 shadow-lg top-1/2 bg-white transform z-50 -translate-y-1/2 left-5`}>
-            <FaArrowLeft size={20} />
-          </button>
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="bg-white rounded-lg my-3 flex flex-col items-center hover:shadow-lg transition">
+          {products.map((product, idx) => (
+            <SwiperSlide
+              key={idx}
+              className="bg-white rounded-lg my-3 cursor-pointer hover:shadow-lg transition h-[340px] flex flex-col justify-between"
+            >
+              <div
+                className="flex flex-col items-center px-2 pt-3 flex-1"
+                onClick={() => router.push(`/products/${product.id}`)}
+              >
                 <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-30 h-20 block mx-auto object-cover rounded mb-2"
+                  className="object-cover rounded mb-3 w-30 h-20"
                   width={130}
                   height={80}
                   priority
                 />
-                <h2 className="text-[20px] text-center w-full truncate font-semibold mb-1 line-clamp-2">
+                <h2 className="text-[18px] font-semibold text-center truncate w-full mb-1">
                   {product.name}
                 </h2>
-                <p className="text-pink-600 font-bold text-[18px] text-sm mb-2">
+                <p className="text-[#ff66d1] font-bold text-center text-[16px]">
                   {product.price}
                 </p>
-                <button className="bg-pink-600 text-[18px] hover:bg-pink-700 duration-500 flex items-center justify-center gap-3 cursor-pointer text-white px-5 w-full py-3 rounded-b-md font-medium text-xs transition-all">
-                  <HiShoppingCart size={20} />
-                  <p>Add to Cart</p>
-                </button>
               </div>
+              <button
+                className="bg-pink-700 hover:bg-[#ff66d1] duration-500 flex items-center justify-center gap-3 text-white px-5 w-full py-3 rounded-b-md font-medium text-xs transition-all"
+                onClick={() => handleAddToCart(product)}
+              >
+                <HiShoppingCart size={20} />
+                <p>Add to Cart</p>
+              </button>
             </SwiperSlide>
           ))}
+
+          {/* Navigation arrows */}
+          <button
+            className={`shadow-lg absolute top-1/2 right-3 z-50 bg-white size-10 rounded-full text-[#ff66d1] hover:text-white flex items-center justify-center hover:bg-[#ff66d1] transform -translate-y-1/2 ${
+              isHovered ? "" : "hidden"
+            }`}
+            onClick={() => swiperRef.current?.slideNext()}
+          >
+            <FaArrowRight />
+          </button>
+          <button
+            className={`shadow-lg absolute top-1/2 left-3 text-[#ff66d1] hover:text-white z-50 bg-white size-10 rounded-full flex items-center justify-center hover:bg-[#ff66d1] transform -translate-y-1/2 ${
+              isHovered ? "" : "hidden"
+            }`}
+            onClick={() => swiperRef.current?.slidePrev()}
+          >
+            <FaArrowLeft />
+          </button>
         </Swiper>
-      </div>
-      <div className="grid-cols-2 sm:grid-cols-3 grid lg:hidden gap-3">
-          {
-            products.map((product, i) => (
-              <div key={i} className="bg-white rounded-lg my-3 flex flex-col items-center hover:shadow-lg transition">
+
+        {/* Mobile Grid */}
+        <div className="grid grid-cols-2 gap-4 sm:hidden">
+          {products.map((product, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-lg p-2 flex flex-col justify-between h-[280px] hover:shadow-lg transition"
+            >
+              <div
+                className="flex flex-col items-center flex-1"
+                onClick={() => router.push(`/products/${product.id}`)}
+              >
                 <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-30 h-20 block mx-auto object-cover rounded mb-2"
+                  className="object-cover rounded mb-2 w-30 h-20"
                   width={130}
                   height={80}
                   priority
                 />
-                <h2 className="text-[20px] w-full text-center truncate font-semibold mb-1 line-clamp-2">
+                <h2 className="text-[14px] font-semibold text-center truncate mb-1">
                   {product.name}
                 </h2>
-                <p className="text-pink-600 font-bold text-[18px] text-sm mb-2">
+                <p className="text-[#ff66d1] font-bold text-center text-[14px]">
                   {product.price}
                 </p>
-                <button className="bg-pink-600 max-[380px]:text-xs text-[18px] hover:bg-pink-700 duration-500 flex items-center justify-center gap-3 cursor-pointer text-white px-5 w-full py-3 rounded-b-md font-medium text-xs transition-all">
-                  <HiShoppingCart size={20} />
-                  <p>Add to Cart</p>
-                </button>
               </div>
-            ))
-          }
+              <button
+                className="bg-pink-700 hover:bg-[#ff66d1] duration-500 flex items-center justify-center gap-2 text-white px-3 w-full py-2 rounded-md font-medium text-xs transition-all"
+                onClick={() => handleAddToCart(product)}
+              >
+                <HiShoppingCart size={16} />
+                <p>Add</p>
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="flex justify-center">
-        <Link href="/products" className="bg-gray-900 hover:bg-gray-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition">
-          View All Products
-        </Link>
+      <div className="text-center mt-8 justify-center flex">
+        <button className="bg-[#ff66d1] text-white px-6 py-3 rounded-md hover:bg-pink-700 transition-all flex items-center">
+          <Link href="/products">View All</Link>
+          <FaArrowRight className="ml-2" />
+        </button>
       </div>
     </div>
   );
