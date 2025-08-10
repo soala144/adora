@@ -5,7 +5,7 @@ import Product from "../components/Product";
 import Reviews from "../components/Reviews";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       {" "}
@@ -24,4 +24,4 @@ export const metadata = {
     "Discover beautiful handmade accessories at Adora Sparkles. Empower and beautify every soul!",
 };
 
-export default page;
+export default Page;

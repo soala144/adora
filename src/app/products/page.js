@@ -1,3 +1,4 @@
+"use client";
 import ProductPg from "../../components/ProductPg";
 import React from "react";
 
@@ -6,7 +7,7 @@ export const metadata = {
   description: "Browse our collection of handmade accessories and products.",
 };
 
-const page = () => {
+const Page = () => {
   return (
     <div>
       <ProductPg />
@@ -14,4 +15,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
