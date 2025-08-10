@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import ProductPg from "../../components/ProductPg";
 import React from "react";
 

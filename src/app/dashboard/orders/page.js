@@ -57,7 +57,8 @@ export default function OrdersDashboard() {
   };
 
   return (
-    <div className="p-8">
+    // <div className="p-8">
+    <div className="w-[80%]">
       <h1 className="text-3xl font-bold mb-6">Orders</h1>
       {error && <div className="mb-4 text-red-600">{error}</div>}
       <table className="w-full bg-white rounded-xl shadow-lg">
